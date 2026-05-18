@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Studify Zone – Expert Academic Assistance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+/* ========== CSS VARIABLES ========== */
+:root {
+  --navy: #0f2044;
+  --navy-mid: #1a3460;
+  --sky: #2e7dea;
+  --sky-light: #5b9ef6;
+  --gold: #c9922a;
+  --gold-light: #f0b93a;
+  --off-white: #f7f8fc;
+  --light-gray: #eef1f8;
+  --mid-gray: #c5cde3;
+  --text-body: #3a4a6b;
+  --text-muted: #7a8aaa;
+  --white: #ffffff;
+  --green: #22c55e;
+  --radius: 14px;
+  --shadow-soft: 0 4px 24px rgba(15,32,68,0.08);
+  --shadow-card: 0 2px 16px rgba(15,32,68,0.10);
+  --transition: 0.28s cubic-bezier(.4,0,.2,1);
+  --font-main: 'Sora', sans-serif;
+  --font-display: 'DM Serif Display', serif;
+}
+
+/* ========== RESET & BASE ========== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--font-main);
+  background: var(--off-white);
+  color: var(--navy);
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+section { padding: 96px 0; }
+
+.container {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+/* ========== TYPOGRAPHY ========== */
+.section-label {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sky);
+  background: rgba(46,125,234,0.1);
+  border: 1px solid rgba(46,125,234,0.2);
+  border-radius: 40px;
+  padding: 5px 14px;
+  margin-bottom: 18px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 4vw, 2.8rem);
+  color: var(--navy);
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+.section-sub {
+  font-size: 1.05rem;
+  color: var(--text-body);
+  max-width: 540px;
+  margin-bottom: 48px;
+}
+.text-center { text-align: center; }
+.text-center .section-sub { margin-left: auto; margin-right: auto; }
+
+/* ========== BUTTONS ========== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 26px;
+  border-radius: 50px;
+  font-family: var(--font-main);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border: none;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+.btn-primary {
+  background: var(--sky);
+  color: white;
+  box-shadow: 0 4px 20px rgba(46,125,234,0.3);
+}
+.btn-primary:hover { background: #1b6cd8; box-shadow: 0 6px 28px rgba(46,125,234,0.4); transform: translateY(-1px); }
+.btn-outline {
+  background: transparent;
+  color: var(--navy);
+  border: 2px solid var(--mid-gray);
+}
+.btn-outline:hover { border-color: var(--sky); color: var(--sky); transform: translateY(-1px); }
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: white;
+  box-shadow: 0 4px 20px rgba(201,146,42,0.3);
+}
+.btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(201,146,42,0.4); }
+
+/* ========== NAVBAR ========== */
+#navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(247,248,252,0.92);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(15,32,68,0.07);
+  transition: box-shadow var(--transition);
+}
+#navbar.scrolled { box-shadow: 0 4px 28px rgba(15,32,68,0.10); }
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+  gap: 24px;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--navy);
+  flex-shrink: 0;
+}
+.nav-logo img { width: 40px; height: 40px; border-radius: 8px; object-fit: cover; }
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.nav-links a {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-body);
+  transition: color var(--transition);
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -3px;
+  width: 0; height: 2px;
+  background: var(--sky);
+  border-radius: 2px;
+  transition: width var(--transition);
+}
+.nav-links a:hover { color: var(--navy); }
+.nav-links a:hover::after { width: 100%; }
+.nav-cta { flex-shrink: 0; }
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 6px;
+  border: none;
+  background: none;
+}
+.hamburger span {
+  display: block;
+  width: 24px; height: 2px;
+  background: var(--navy);
+  border-radius: 2px;
+  transition: var(--transition);
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.mobile-menu {
+  display: none;
+  position: absolute;
+  top: 70px; left: 0; right: 0;
+  background: var(--white);
+  border-bottom: 1px solid var(--light-gray);
+  padding: 20px 28px;
+  flex-direction: column;
+  gap: 18px;
+  box-shadow: 0 8px 32px rgba(15,32,68,0.10);
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-body);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--light-gray);
+}
+.mobile-menu .btn { margin-top: 8px; justify-content: center; }
+
+/* ========== HERO ========== */
+#hero {
+  padding-top: 130px;
+  padding-bottom: 0;
+  background: linear-gradient(160deg, #f0f4ff 0%, var(--off-white) 60%);
+  position: relative;
+  overflow: hidden;
+}
+#hero::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -120px;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(46,125,234,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  padding-bottom: 72px;
+}
+.hero-visual { order: 2; }
+.hero-copy { order: 1; }
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  border: 1px solid rgba(46,125,234,0.2);
+  border-radius: 40px;
+  padding: 6px 14px 6px 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--sky);
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-soft);
+}
+.hero-badge .dot {
+  width: 8px; height: 8px;
+  background: var(--green);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.4); }
+  50% { box-shadow: 0 0 0 5px rgba(34,197,94,0); }
+}
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  line-height: 1.15;
+  color: var(--navy);
+  margin-bottom: 20px;
+}
+.hero-title em { font-style: italic; color: var(--sky); }
+.hero-sub {
+  font-size: 1.05rem;
+  color: var(--text-body);
+  line-height: 1.7;
+  margin-bottom: 36px;
+  max-width: 500px;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 40px;
+}
+.consent-note { margin: -10px 0 28px; }
+.consent-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  max-width: 460px;
+}
+.consent-label input[type="checkbox"] {
+  margin-top: 2px;
+  accent-color: var(--sky);
+  flex-shrink: 0;
+  width: 14px; height: 14px;
+}
+.consent-label strong { color: var(--text-body); }
+.hero-trust { display: flex; flex-wrap: wrap; gap: 20px; }
+.trust-badge {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-body);
+}
+.trust-badge .icon { font-size: 1rem; }
+
+/* Hero Visual */
+.hero-visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-illustration {
+  width: 100%;
+  max-width: 480px;
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 20px 64px rgba(15,32,68,0.14);
+  overflow: hidden;
+  border: 1px solid rgba(15,32,68,0.06);
+}
+.hero-illus-header {
+  background: var(--navy);
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+}
+.hero-illus-header .dot-row { display: flex; gap: 6px; }
+.hero-illus-header .dot-row span { width: 10px; height: 10px; border-radius: 50%; }
+.dot-red { background: #ff5f56; }
+.dot-yellow { background: #ffbd2e; }
+.dot-green { background: #27c93f; }
+.hero-illus-body { padding: 24px; }
+.stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+.stat-card { background: var(--light-gray); border-radius: 12px; padding: 16px; text-align: center; }
+.stat-card .num { font-family: var(--font-display); font-size: 1.6rem; color: var(--navy); display: block; }
+.stat-card .lbl { font-size: 0.72rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+.grade-bar-wrap { margin-top: 10px; }
+.grade-bar-label { display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600; color: var(--text-body); margin-bottom: 6px; }
+.grade-bar { height: 8px; background: var(--light-gray); border-radius: 8px; overflow: hidden; margin-bottom: 10px; }
+.grade-bar-fill { height: 100%; border-radius: 8px; background: linear-gradient(90deg, var(--sky), var(--sky-light)); }
+.hero-illus-footer {
+  background: linear-gradient(135deg, var(--navy), var(--navy-mid));
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+}
+.hero-illus-footer .tag { font-size: 0.78rem; font-weight: 600; opacity: 0.8; }
+.hero-illus-footer .val { font-family: var(--font-display); font-size: 1.2rem; }
+
+/* Ticker */
+.ticker-wrap { background: var(--navy); color: white; padding: 14px 0; overflow: hidden; }
+.ticker-inner { display: flex; animation: ticker 30s linear infinite; white-space: nowrap; }
+.ticker-inner span { padding: 0 60px; font-size: 0.88rem; font-weight: 500; opacity: 0.9; }
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ========== WHY US ========== */
+#why-us { background: var(--white); }
+.why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 48px; }
+.why-card {
+  background: var(--off-white);
+  border: 1px solid var(--light-gray);
+  border-radius: var(--radius);
+  padding: 32px;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.why-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px; height: 100%;
+  background: linear-gradient(180deg, var(--sky), var(--sky-light));
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+.why-card:hover { box-shadow: var(--shadow-card); transform: translateY(-3px); }
+.why-card:hover::before { opacity: 1; }
+.why-icon {
+  width: 52px; height: 52px;
+  background: rgba(46,125,234,0.1);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 18px;
+}
+.why-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+.why-card p { font-size: 0.93rem; color: var(--text-body); line-height: 1.65; }
+
+/* ========== PRICING ========== */
+#pricing { background: linear-gradient(160deg, #f0f4ff 0%, var(--off-white) 100%); }
+.pricing-box {
+  background: white;
+  border-radius: 24px;
+  padding: 56px 48px;
+  max-width: 720px;
+  margin: 0 auto;
+  box-shadow: 0 8px 48px rgba(15,32,68,0.10);
+  border: 1px solid rgba(46,125,234,0.12);
+  position: relative;
+  overflow: hidden;
+}
+.pricing-box::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--sky), var(--sky-light), var(--gold-light));
+}
+.price-display { text-align: center; margin: 28px 0; }
+.price-display .amount { font-family: var(--font-display); font-size: 3.4rem; color: var(--navy); line-height: 1; }
+.price-display .per { font-size: 1rem; color: var(--text-muted); font-weight: 500; margin-top: 6px; }
+.price-sub {
+  font-size: 0.93rem;
+  color: var(--text-body);
+  text-align: center;
+  margin-bottom: 32px;
+  max-width: 480px;
+  margin-left: auto; margin-right: auto;
+}
+.checklist { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 36px; }
+.check-item { display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; color: var(--text-body); line-height: 1.5; }
+.check-item .chk { color: var(--green); font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+.pricing-cta { text-align: center; }
+
+/* ========== HOW IT WORKS ========== */
+#how-it-works { background: var(--white); }
+.steps-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+  position: relative;
+  margin-top: 56px;
+}
+.steps-grid::before {
+  content: '';
+  position: absolute;
+  top: 40px; left: calc(16.6% + 20px); right: calc(16.6% + 20px);
+  height: 2px;
+  background: linear-gradient(90deg, var(--sky), var(--sky-light));
+  z-index: 0;
+}
+.step-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 24px;
+  position: relative;
+  z-index: 1;
+}
+.step-num {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: white;
+  border: 3px solid var(--sky);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--sky);
+  margin-bottom: 24px;
+  box-shadow: 0 0 0 8px rgba(46,125,234,0.08);
+}
+.step-card h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+.step-card p { font-size: 0.9rem; color: var(--text-body); line-height: 1.65; }
+
+/* ========== SOCIAL PROOF ========== */
+#social-proof { background: var(--off-white); }
+.proof-intro { text-align: center; margin-bottom: 48px; }
+.proof-intro .section-sub { margin-left: auto; margin-right: auto; }
+.proof-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.proof-card {
+  background: white;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--light-gray);
+  transition: var(--transition);
+  cursor: pointer;
+}
+.proof-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(15,32,68,0.14); }
+.proof-card img { width: 100%; height: 220px; object-fit: cover; object-position: top; }
+.proof-card-body { padding: 14px 16px; }
+.proof-card-body .grade-chip {
+  display: inline-block;
+  background: rgba(34,197,94,0.12);
+  color: #166534;
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.proof-card-body p { font-size: 0.82rem; color: var(--text-muted); }
+
+/* ========== TEAM ========== */
+#team { background: var(--white); }
+.team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+.team-card {
+  background: var(--off-white);
+  border-radius: var(--radius);
+  padding: 36px 28px;
+  text-align: center;
+  border: 1px solid var(--light-gray);
+  transition: var(--transition);
+}
+.team-card:hover { box-shadow: var(--shadow-card); transform: translateY(-3px); }
+.team-avatar {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--navy), var(--sky));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: white;
+  margin: 0 auto 18px;
+  border: 3px solid white;
+  box-shadow: 0 4px 16px rgba(15,32,68,0.18);
+  object-fit: cover;
+}
+.team-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+.team-role { font-size: 0.82rem; font-weight: 600; color: var(--sky); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 18px; }
+.team-contact { display: flex; flex-direction: column; gap: 8px; }
+.team-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-size: 0.83rem;
+  color: var(--text-body);
+  transition: color var(--transition);
+}
+.team-link:hover { color: var(--sky); }
+.team-link .icon { font-size: 0.9rem; }
+
+/* ========== GUARANTEES ========== */
+#guarantees { background: var(--navy); color: white; }
+#guarantees .section-label { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.85); }
+#guarantees .section-title { color: white; }
+.guarantee-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 48px; }
+.guarantee-card {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius);
+  padding: 32px;
+  backdrop-filter: blur(10px);
+}
+.guarantee-card h3 { font-size: 1.1rem; font-weight: 700; color: white; margin-bottom: 12px; }
+.guarantee-card p { font-size: 0.93rem; color: rgba(255,255,255,0.72); line-height: 1.7; }
+
+/* ========== CONTACT ========== */
+#contact { background: var(--off-white); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 48px; }
+.contact-card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 28px;
+  border: 1px solid var(--light-gray);
+  box-shadow: var(--shadow-soft);
+}
+.contact-card .icon-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--sky);
+  margin-bottom: 16px;
+}
+.contact-card .icon-title .ic { font-size: 1.1rem; }
+.contact-card p, .contact-card a { font-size: 0.93rem; color: var(--text-body); line-height: 1.8; }
+.contact-card a:hover { color: var(--sky); }
+.social-links { display: flex; flex-direction: column; gap: 8px; }
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 0.93rem;
+  color: var(--text-body);
+  font-weight: 500;
+  transition: color var(--transition);
+}
+.social-link:hover { color: var(--sky); }
+
+/* ========== FAQ ========== */
+#faq { background: var(--white); }
+.faq-list { max-width: 740px; margin: 48px auto 0; display: flex; flex-direction: column; gap: 14px; }
+.faq-item {
+  background: var(--off-white);
+  border: 1px solid var(--light-gray);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: var(--transition);
+}
+.faq-item.open { box-shadow: var(--shadow-card); border-color: rgba(46,125,234,0.25); }
+.faq-q { display: flex; justify-content: space-between; align-items: center; padding: 22px 24px; cursor: pointer; gap: 16px; }
+.faq-q h4 { font-size: 1rem; font-weight: 600; color: var(--navy); flex: 1; }
+.faq-arrow {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--light-gray);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.9rem;
+  color: var(--navy);
+  flex-shrink: 0;
+  transition: var(--transition);
+}
+.faq-item.open .faq-arrow { background: var(--sky); color: white; transform: rotate(180deg); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height 0.36s cubic-bezier(.4,0,.2,1), padding 0.3s; }
+.faq-a-inner { padding: 0 24px 22px; font-size: 0.93rem; color: var(--text-body); line-height: 1.7; }
+
+/* ========== FOOTER ========== */
+footer { background: var(--navy); color: rgba(255,255,255,0.7); padding: 32px 0; }
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.footer-copy { font-size: 0.85rem; }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-size: 0.85rem; color: rgba(255,255,255,0.55); transition: color var(--transition); }
+.footer-links a:hover { color: white; }
+
+/* Floating badge */
+.float-badge {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  z-index: 999;
+  background: white;
+  border-radius: 50px;
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  box-shadow: 0 4px 24px rgba(15,32,68,0.16);
+  border: 1px solid var(--light-gray);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--navy);
+  animation: floatIn 0.8s 1s both;
+}
+.float-badge .pulse-dot { width: 9px; height: 9px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes floatIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 900px) {
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: flex; }
+  .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+  .hero-visual { order: 1; }
+  .hero-copy { order: 2; }
+  .hero-illustration { max-width: 100%; }
+  .why-grid { grid-template-columns: 1fr; }
+  .steps-grid { grid-template-columns: 1fr; gap: 40px; }
+  .steps-grid::before { display: none; }
+  .proof-grid { grid-template-columns: 1fr 1fr; }
+  .team-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
+  .guarantee-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .checklist { grid-template-columns: 1fr; }
+  .pricing-box { padding: 36px 24px; }
+  section { padding: 72px 0; }
+}
+@media (max-width: 540px) {
+  .proof-grid { grid-template-columns: 1fr; }
+  .hero-actions { flex-direction: column; }
+  .hero-actions .btn { width: 100%; justify-content: center; }
+  .float-badge { bottom: 16px; right: 16px; font-size: 0.76rem; }
+  .footer-inner { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- ========== NAVBAR ========== -->
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <img src="images/logo.png" alt="Studify Zone Logo">
+        Studify Zone
+      </a>
+      <ul class="nav-links">
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#pricing">Plans & Pricing</a></li>
+        <li><a href="#team">Our Team</a></li>
+        <li><a href="#faq">FAQs</a></li>
+      </ul>
+      <a href="https://wa.me/917908651652" target="_blank" class="btn btn-primary nav-cta">💬 Chat on WhatsApp</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#how-it-works">How It Works</a>
+      <a href="#pricing">Plans & Pricing</a>
+      <a href="#team">Our Team</a>
+      <a href="#faq">FAQs</a>
+      <a href="https://wa.me/917908651652" target="_blank" class="btn btn-primary">💬 Chat on WhatsApp</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <!-- Left: Visual Dashboard -->
+      <div class="hero-visual">
+        <div class="hero-illustration">
+          <div class="hero-illus-header">
+            <div class="dot-row">
+              <span class="dot-red"></span>
+              <span class="dot-yellow"></span>
+              <span class="dot-green"></span>
+            </div>
+            <span style="margin-left:10px;font-size:0.82rem;opacity:0.7;">Student Dashboard</span>
+          </div>
+          <div class="hero-illus-body">
+            <div class="stat-row">
+              <div class="stat-card">
+                <span class="num">27,766</span>
+                <span class="lbl">Assignments Delivered</span>
+              </div>
+              <div class="stat-card">
+                <span class="num">300+</span>
+                <span class="lbl">Expert Writers</span>
+              </div>
+            </div>
+            <div class="grade-bar-wrap">
+              <div class="grade-bar-label"><span>Business Management</span><span style="color:var(--green)">83/100</span></div>
+              <div class="grade-bar"><div class="grade-bar-fill" style="width:83%"></div></div>
+              <div class="grade-bar-label"><span>Financial Performance</span><span style="color:var(--green)">75/100</span></div>
+              <div class="grade-bar"><div class="grade-bar-fill" style="width:75%"></div></div>
+              <div class="grade-bar-label"><span>Integrated Business</span><span style="color:var(--green)">72/100</span></div>
+              <div class="grade-bar"><div class="grade-bar-fill" style="width:72%"></div></div>
+              <div class="grade-bar-label"><span>CC7007 Coursework</span><span style="color:var(--green)">77/100</span></div>
+              <div class="grade-bar"><div class="grade-bar-fill" style="width:77%"></div></div>
+            </div>
+          </div>
+          <div class="hero-illus-footer">
+            <span class="tag">Turnitin Similarity</span>
+            <span class="val" style="color:var(--green)">✅ &lt;10%</span>
+          </div>
+        </div>
+      </div>
+      <!-- Right: Copy -->
+      <div class="hero-copy">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          🏆 Trusted by 2,566+ Students Worldwide
+        </div>
+        <h1 class="hero-title">Get the Grades You <em>Deserve.</em> Original, Expert Academic Support.</h1>
+        <p class="hero-sub">Tailored assignment assistance from a global team of 300+ professional writers. Zero AI, zero plagiarism, and timely delivery—guaranteed.</p>
+        <div class="hero-actions">
+          <a href="https://wa.me/917908651652" target="_blank" class="btn btn-primary">📩 Send Us Your Brief on WhatsApp</a>
+          <a href="https://wa.me/917908651652" target="_blank" class="btn btn-outline">💬 Chat With Us on WhatsApp</a>
+        </div>
+        <div class="consent-note">
+          <label class="consent-label">
+            <input type="checkbox" id="waConsent" checked />
+            <span>By contacting us, I agree to receive order updates and support messages via WhatsApp from Studify Zone. I can opt out anytime by replying <strong>STOP</strong>.</span>
+          </label>
+        </div>
+        <div class="hero-trust">
+          <div class="trust-badge"><span class="icon">🔒</span> 100% Confidential & Secure</div>
+          <div class="trust-badge"><span class="icon">🚫</span> Zero AI Use</div>
+          <div class="trust-badge"><span class="icon">📊</span> Free Turnitin Report</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Ticker -->
+  <div class="ticker-wrap">
+    <div class="ticker-inner">
+      <span>🏆 Proudly helping students secure their future: 27,766 assignments delivered.</span>
+      <span>📊 Turnitin reports under 10% — guaranteed on every submission.</span>
+      <span>✍️ 100% human written — zero AI, zero plagiarism, 100% original.</span>
+      <span>🔄 Free priority rework within 24–72 hours if any changes are needed.</span>
+      <span>💳 Pay only 50% upfront — or book your slot for just £10–£15.</span>
+      <span>🏆 Proudly helping students secure their future: 27,766 assignments delivered.</span>
+      <span>📊 Turnitin reports under 10% — guaranteed on every submission.</span>
+      <span>✍️ 100% human written — zero AI, zero plagiarism, 100% original.</span>
+      <span>🔄 Free priority rework within 24–72 hours if any changes are needed.</span>
+      <span>💳 Pay only 50% upfront — or book your slot for just £10–£15.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== WHY US ========== -->
+<section id="why-us">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">Why Choose Us</span>
+      <h2 class="section-title">The Studify Zone Difference</h2>
+      <p class="section-sub">Every feature is designed around one goal — helping you achieve the results you deserve.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">👥</div>
+        <h3>300+ Subject Experts</h3>
+        <p>Your work is assigned to a qualified writer who specializes deeply in your specific course requirements — matched by subject, level, and deadline.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">💳</div>
+        <h3>Risk-Free Payments</h3>
+        <p>No need to pay 100% upfront. Secure your writer with a 50% advance or book your slot with a small token amount of £10–£15 to get started.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">✍️</div>
+        <h3>100% Original Content</h3>
+        <p>We use peer-reviewed academic books and libraries only. No ChatGPT. Every assignment comes with a verified Turnitin report under 10% similarity.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🔄</div>
+        <h3>Free Rework Support</h3>
+        <p>Need adjustments? We offer fast, free revisions processed with high priority within 24 to 72 hours — no questions asked, no extra charge.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PRICING ========== -->
+<section id="pricing">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">Plans & Pricing</span>
+      <h2 class="section-title">Flat-Rate Pricing</h2>
+    </div>
+    <div class="pricing-box">
+      <div class="price-display">
+        <div class="amount">£15 – £25</div>
+        <div class="per">per 1,000 words</div>
+      </div>
+      <p class="price-sub">Pricing scales transparently within this bracket based on technical complexity, academic level, and closeness of deadline. No hidden fees, ever.</p>
+      <div class="checklist">
+        <div class="check-item"><span class="chk">✅</span><span>Comprehensive academic research & referencing</span></div>
+        <div class="check-item"><span class="chk">✅</span><span>Official Turnitin Similarity Report (Guaranteed under 10%)</span></div>
+        <div class="check-item"><span class="chk">✅</span><span>24–72 hour high-priority rework window if changes are needed</span></div>
+        <div class="check-item"><span class="chk">✅</span><span>50/50 split payment or low token booking fee (£10–£15)</span></div>
+      </div>
+      <div class="pricing-cta">
+        <a href="https://wa.me/917908651652" target="_blank" class="btn btn-gold">💳 Get an Exact Price Quote</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== HOW IT WORKS ========== -->
+<section id="how-it-works">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">Simple Process</span>
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-sub">Three easy steps from brief to brilliant — we handle everything in between.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h3>Submit Your Brief</h3>
+        <p>Upload your instructions, guidelines, or lecture slides. Our management team reviews it and provides an accurate quote on our £15–£25/1k word scale.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h3>Secure Your Slot</h3>
+        <p>Pay a 50% deposit or a small token to begin. We can send you progress screenshots along the way to build your trust before final delivery.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h3>Review & Download</h3>
+        <p>Receive your polished assignment along with its Turnitin report. Check everything and settle the remaining balance only after you are satisfied.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SOCIAL PROOF ========== -->
+<section id="social-proof">
+  <div class="container">
+    <div class="proof-intro">
+      <span class="section-label">Student Results</span>
+      <h2 class="section-title">See What Your Peers Say About Studify Zone</h2>
+      <p class="section-sub">Authentic grade screenshots and feedback from students who cleared their modules with flying colors.</p>
+    </div>
+    <div class="proof-grid">
+      <div class="proof-card">
+        <img src="images/feedback78.jpg" alt="Student grade proof – 78%">
+        <div class="proof-card-body">
+          <span class="grade-chip">📊 78% — Activity Report</span>
+          <p>Module exam grade verified via university portal</p>
+        </div>
+      </div>
+      <div class="proof-card">
+        <img src="images/feedback88.jpg" alt="Student grade proof – 88/100">
+        <div class="proof-card-body">
+          <span class="grade-chip">🎓 88/100 — Assignment</span>
+          <p>Coursework submission — verified grade via university portal</p>
+        </div>
+      </div>
+      <div class="proof-card">
+        <img src="images/feedback84.png" alt="Student grade proof – 84/100">
+        <div class="proof-card-body">
+          <span class="grade-chip">🏆 84/100 — Assignment</span>
+          <p>Coursework submission — verified grade via university portal</p>
+        </div>
+      </div>
+      <div class="proof-card">
+        <img src="images/feedback77.jpg" alt="Student grade proof – 77/100">
+        <div class="proof-card-body">
+          <span class="grade-chip">✅ 77/100 — CC7007</span>
+          <p>Coursework submission — verified grade via university portal</p>
+        </div>
+      </div>
+      <div class="proof-card">
+        <img src="images/feedback80.jpg" alt="Student grade proof – 80/100">
+        <div class="proof-card-body">
+          <span class="grade-chip">📈 80/100 — Technical assignment</span>
+          <p>Coursework submission — verified grade via university portal</p>
+        </div>
+      </div>
+      <div class="proof-card" style="background:linear-gradient(135deg,var(--navy),var(--navy-mid));display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:260px;border:none;">
+        <div style="font-size:2.5rem;margin-bottom:14px;">📩</div>
+        <p style="color:white;font-weight:700;font-size:1rem;text-align:center;padding:0 20px;margin-bottom:14px;">Ready to achieve results like these?</p>
+        <a href="https://wa.me/917908651652" target="_blank" class="btn btn-primary" style="font-size:0.85rem;">Get Started Today</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TEAM ========== -->
+<section id="team">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">Our Team</span>
+      <h2 class="section-title">The People Behind Studify Zone</h2>
+      <p class="section-sub">Our management team is available around the clock to support every student's journey.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <img class="team-avatar" src="images/ceoPic.jpeg" alt="Shaikhan Islam">
+        <h3>Shaikhan Islam</h3>
+        <p class="team-role">Chief Executive Officer</p>
+        <div class="team-contact">
+          <a href="mailto:shaikhanismal@gmail.com" class="team-link"><span class="icon">📧</span> shaikhanismal@gmail.com</a>
+          <a href="https://wa.me/917908651652" target="_blank" class="team-link"><span class="icon">💬</span> +91 7908651652</a>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar" style="background:linear-gradient(135deg,#c9922a,#f0b93a)">R</div>
+        <h3>Rumana Khatun</h3>
+        <p class="team-role">Human Resources</p>
+        <div class="team-contact">
+          <a href="mailto:rumanastudifyzone@gmail.com" class="team-link"><span class="icon">📧</span> rumanastudifyzone@gmail.com</a>
+          <a href="https://wa.me/91988342478" target="_blank" class="team-link"><span class="icon">💬</span> +91 988342478</a>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar" style="background:linear-gradient(135deg,#166534,#22c55e)">M</div>
+        <h3>Mabud Sekh</h3>
+        <p class="team-role">Operations Manager</p>
+        <div class="team-contact">
+          <a href="mailto:mabudstudifyzone@gmail.com" class="team-link"><span class="icon">📧</span> mabudstudifyzone@gmail.com</a>
+          <a href="https://wa.me/916296913654" target="_blank" class="team-link"><span class="icon">💬</span> +91 6296913654</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== GUARANTEES ========== -->
+<section id="guarantees">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">Our Commitments</span>
+      <h2 class="section-title">🤝 Our Guarantees to You</h2>
+    </div>
+    <div class="guarantee-grid">
+      <div class="guarantee-card">
+        <h3>🎯 The Grade Assurance</h3>
+        <p>We strictly ensure deeply researched, course-tailored work aligned to your marking criteria — crafted to help you achieve the strongest possible academic outcome.</p>
+      </div>
+      <div class="guarantee-card">
+        <h3>🛡️ The Revision Promise</h3>
+        <p>We stand fully behind our work. If any submission requires further development, we take responsibility and provide complete revision support at absolutely no additional cost.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CONTACT ========== -->
+<section id="contact">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">Connect With Us</span>
+      <h2 class="section-title">We're Always Here For You</h2>
+      <p class="section-sub">Reach us through any channel — our team responds quickly, every day.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="icon-title"><span class="ic">📍</span> Our Location</div>
+        <p>Nazrulpally, Beldanga, Murshidabad<br>West Bengal, India — 742133</p>
+      </div>
+      <div class="contact-card">
+        <div class="icon-title"><span class="ic">💬</span> WhatsApp Channels</div>
+        <p>
+          <a href="https://wa.me/917908651652" target="_blank">+91 7908651652 — CEO (Shaikhan)</a><br>
+          <a href="https://wa.me/916296913654" target="_blank">+91 6296913654 — Manager (Mabud)</a><br>
+          <a href="https://wa.me/91988342478" target="_blank">+91 988342478 — HR (Rumana)</a>
+        </p>
+      </div>
+      <div class="contact-card">
+        <div class="icon-title"><span class="ic">📧</span> Official Emails</div>
+        <p>
+          <a href="mailto:studifyzoneuk@gmail.com">studifyzoneuk@gmail.com (Business)</a><br>
+          <a href="mailto:rumanastudifyzone@gmail.com">rumanastudifyzone@gmail.com (HR)</a><br>
+          <a href="mailto:mabudstudifyzone@gmail.com">mabudstudifyzone@gmail.com (Support)</a>
+        </p>
+      </div>
+      <div class="contact-card">
+        <div class="icon-title"><span class="ic">🌐</span> Social Media</div>
+        <div class="social-links">
+          <a href="https://x.com/StudifyZone" target="_blank" class="social-link">🐦 X (Twitter) — @StudifyZone</a>
+          <a href="https://www.instagram.com/studifyzone?igsh=NHp5ZmJ1Y25jMGlj" target="_blank" class="social-link">📸 Instagram — @studifyzone</a>
+          <a href="https://www.facebook.com/share/17hXcZ5tGr/" target="_blank" class="social-link">👥 Facebook — Studify Zone</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FAQ ========== -->
+<section id="faq">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">FAQs</span>
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <p class="section-sub">Everything you need to know before getting started with Studify Zone.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">
+          <h4>Do you use ChatGPT or AI tools?</h4>
+          <div class="faq-arrow">▾</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Absolutely not. Every line is written from scratch using academic books, trusted peer-reviewed libraries, and reliable sources. No AI is involved at any stage of the writing process — and your Turnitin report confirms this.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <h4>What subjects can you help with?</h4>
+          <div class="faq-arrow">▾</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner"> We provide support for Business, Healthcare, Nursing, IT, Marketing, HRM, Finance, Law, Engineering, and many more subjects.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <h4>Can you send me the final assignment first, and I'll pay later?</h4>
+          <div class="faq-arrow">▾</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">To keep our writers allocated to your project, a confirmation deposit is required. However, we offer low token deposits (£10–£15) and will happily send you progress screenshots to verify our work and quality before final delivery.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <h4>What if my university report shows a high similarity index?</h4>
+          <div class="faq-arrow">▾</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Matches on things like references, citations, or the table of contents are completely standard and ignored by universities. However, if any core content needs tweaking, we will revise and reduce it for you immediately — free of charge, within our priority rework window.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <h4>How quickly can you complete my assignment?</h4>
+          <div class="faq-arrow">▾</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">We handle both standard and urgent deadlines. The turnaround depends on word count and complexity, but we regularly deliver within 24–72 hours for urgent requests. Contact us with your deadline and we'll confirm immediately.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <h4>Is my personal information kept private?</h4>
+          <div class="faq-arrow">▾</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Absolutely. We operate with full confidentiality. Your name, university, and details are never shared with any third party. Our communication channels (WhatsApp and email) are private, and we delete sensitive data after project completion upon request.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-copy">
+        © 2026 Studify Zone. All Rights Reserved. &nbsp;|&nbsp;
+        <a href="mailto:studifyzoneuk@gmail.com" style="color:rgba(255,255,255,0.55)">studifyzoneuk@gmail.com</a>
+      </div>
+      <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="privacy.html">Terms of Service</a>
+        <a href="privacy.html">Fair Use Policy</a>
+        <a href="privacy.html">Opt-Out</a>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,0.08);margin-top:24px;padding-top:20px;font-size:0.78rem;color:rgba(255,255,255,0.42);line-height:1.8;max-width:900px;">
+      <p>
+        <strong style="color:rgba(255,255,255,0.6);">WhatsApp Messaging & Privacy Notice:</strong>
+        By initiating contact with Studify Zone via WhatsApp, you expressly consent to receive order confirmations, assignment progress updates, and customer support messages related to your enquiry.
+        We collect only the information you voluntarily provide (name, contact number, and assignment brief) solely for the purpose of processing and delivering your requested service.
+        Your personal data is never sold, rented, or disclosed to any third party.
+        Message frequency varies depending on your order status. You may withdraw consent and opt out at any time by replying <strong style="color:rgba(255,255,255,0.65);">STOP</strong> to any message received.
+        For data access, correction, or removal requests, contact us at
+        <a href="mailto:studifyzoneuk@gmail.com" style="color:rgba(255,255,255,0.5);">studifyzoneuk@gmail.com</a>.
+        Standard carrier message and data rates may apply.
+      </p>
+      <p style="margin-top:10px;">
+        Studify Zone is a registered academic tutoring and assistance service based in West Bengal, India.
+        All materials provided are intended strictly for reference, learning, and educational support purposes, in accordance with our
+        <a href="privacy.html#fair-use" style="color:rgba(255,255,255,0.5);">Fair Use Policy</a>.
+        We are committed to full compliance with applicable data protection laws including GDPR.
+        View our full <a href="privacy.html" style="color:rgba(255,255,255,0.5);">Privacy Policy</a> for complete details.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<!-- ========== JAVASCRIPT ========== -->
+<script>
+// Navbar scroll shadow
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 20);
+});
+
+// Hamburger mobile menu
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+});
+mobileMenu.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  });
+});
+
+// FAQ Accordion
+const faqItems = document.querySelectorAll('.faq-item');
+faqItems.forEach(item => {
+  const q = item.querySelector('.faq-q');
+  const a = item.querySelector('.faq-a');
+  q.addEventListener('click', () => {
+    const isOpen = item.classList.contains('open');
+    faqItems.forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-a').style.maxHeight = null;
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      a.style.maxHeight = a.scrollHeight + 'px';
+    }
+  });
+});
+
+// Smooth scroll for nav anchors
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      const top = target.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  });
+});
+
+// Entrance animations
+const animEls = document.querySelectorAll('.why-card, .step-card, .proof-card, .team-card, .guarantee-card, .contact-card, .faq-item');
+animEls.forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(24px)';
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+});
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+animEls.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
