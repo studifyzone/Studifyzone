@@ -232,8 +232,8 @@ section { padding: 96px 0; }
   align-items: center;
   padding-bottom: 72px;
 }
-.hero-visual { order: 2; }
-.hero-copy { order: 1; }
+.hero-visual { order: 2; min-width: 0; }
+.hero-copy { order: 1; min-width: 0; }
 .hero-badge {
   display: inline-flex;
   align-items: center;
@@ -264,6 +264,8 @@ section { padding: 96px 0; }
   line-height: 1.15;
   color: var(--navy);
   margin-bottom: 20px;
+  overflow-wrap: break-word;
+}
 }
 .hero-title em { font-style: italic; color: var(--sky); }
 .hero-sub {
